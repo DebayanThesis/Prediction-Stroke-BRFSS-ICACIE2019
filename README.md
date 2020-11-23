@@ -1,6 +1,6 @@
 ## Prediction of Stroke Risk Factors for Better Pre-emptive Healthcare: A Public-Survey-Based Approach
 
- This repository contains the code for our ICACIE 2019 paper
+ This repository contains the code for our <p><a href="https://doi.org/10.1007/978-981-15-6353-9_2">ICACIE 2019 paper </a></p>
  
  ```Debayan Banerjee and Jagannath Singh
  Prediction of Stroke Risk Factors for Better Pre-emptive Healthcare: A Public-Survey-Based Approach
