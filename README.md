@@ -9,10 +9,6 @@
 
 If you find the code useful for your research, please cite our paper:
 
-```{BibTeX}  {@incollection{banerjeeprediction,
-  title={Prediction of Stroke Risk Factors for Better Pre-emptive Healthcare: A Public-Survey-Based Approach},
-  author={Banerjee, Debayan and Singh, Jagannath},
-  booktitle={Progress in Advanced Computing and Intelligent Engineering},
-  pages={12--24},
-  publisher={Springer}
-}
+```
+Banerjee D., Singh J. (2021) Prediction of Stroke Risk Factors for Better Pre-emptive Healthcare: A Public-Survey-Based Approach. In: Panigrahi C.R., Pati B., Mohapatra P., Buyya R., Li KC. (eds) Progress in Advanced Computing and Intelligent Engineering. Advances in Intelligent Systems and Computing, vol 1199. Springer, Singapore. https://doi.org/10.1007/978-981-15-6353-9_2
+```
