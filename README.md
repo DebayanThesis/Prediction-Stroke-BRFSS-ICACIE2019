@@ -15,6 +15,4 @@ Banerjee D., Singh J. (2021) Prediction of Stroke Risk Factors for Better Pre-em
 for Figure 2 : 
 interFeature_correlation.rmd
 for figure 3 : 
-```
-Prediction-Stroke-BRFSS-ICACIE2019/featureTarget_correlation.rmd 
-```
+<p><a href="featureTarget_correlation.rmd ">featureTarget_correlation.rmd </a></p>
