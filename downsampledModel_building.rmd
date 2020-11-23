@@ -1,0 +1,228 @@
+***
+after checking the same for the BRFSS datasets of 2011 and 2013 as they had these exact predictors, we found that the result is more or less same with .01 difference range for AuC values and FpR and FnR are also varying within +/- 3%
+hence we wanted to see if AuC can be kept same if the whole dataset is randomly downsampled sampled first and then the above method is applied..in this case we made the imbalance ration of calibrate and test set as 4.74:1 each and the ttrain set as 3:1 and we observed a drastic change at the confusion matrix entries DESPITE the AuC being the same as well as the top 5 candidates in the VARIMP plot..hence we can conclude that explanable AI is needed to be used to check if truely the dataset lacks enough pure mutually exclusive behavioural features or is it just because of the model design and the class imbalance of 24:1 for stroke response..going further into this direction was out of our scope for this research
+***
+
+***
+downsample whole input data to 4.74 : 1 imbalance
+***
+
+```{r}
+#stroke1 <- read.csv("stroke_clean.csv")
+set.seed(1122)
+library(dplyr)
+stroke_tmp <- stroke1
+random_pool <- sample(1:nrow(stroke1), nrow(stroke1) / 1.25, replace = FALSE)
+random_pool_tmp <- data.frame(random_pool)
+random_pool_tmp <-  subset(random_pool_tmp, stroke_tmp$CVDSTRK3[random_pool] < 1 )
+stroke_tmp <- stroke_tmp[ -random_pool_tmp$random_pool[1:nrow(random_pool_tmp)], ]
+stroke1_downsampled <- stroke_tmp
+rm(stroke_tmp,random_pool_tmp)
+
+```
+
+```{r}
+summary(as.factor(stroke1_downsampled$CVDSTRK3))
+```
+```{r}
+stroke1_downsampled.h2o <- as.h2o(stroke1_downsampled)
+
+covtype.splits <- h2o.splitFrame(stroke1_downsampled.h2o, ratios = 
+                                   c(0.89, 0.01)
+                                 , seed = 1122)
+train12_downsampled.h2o <- covtype.splits[[1]]
+calibrate12_downsampled.h2o <- covtype.splits[[2]]
+test12_downsampled.h2o <- covtype.splits[[3]]
+```
+
+```{r}
+summary(as.factor(train12_downsampled.h2o$CVDSTRK3))
+nrow(train12_downsampled.h2o)
+train12_downsampled <- as.data.frame(train12_downsampled.h2o)
+#stroke_keep <- stroke1_downsampled.h2o
+```
+
+***
+Random_Downsample_Train_Set
+***
+
+```{r}
+set.seed(1122)
+library(dplyr)
+stroke_tmp <- train12_downsampled
+random_pool <- sample(1:nrow(train12_downsampled), nrow(train12_downsampled) / 4, replace = FALSE)
+random_pool_tmp <- data.frame(random_pool)
+random_pool_tmp <-  subset(random_pool_tmp, stroke_tmp$CVDSTRK3[random_pool] < 1 )
+stroke_tmp <- stroke_tmp[ -random_pool_tmp$random_pool[1:nrow(random_pool_tmp)], ]
+train12_downsampled.h2o <- as.h2o(stroke_tmp)
+rm(stroke_tmp,random_pool_tmp, train12_downsampled)
+```
+
+```{r}
+summary(as.factor(train12_downsampled.h2o$CVDSTRK3))
+```
+
+***
+model building
+***
+
+```{r}
+colnames(train12_downsampled.h2o)
+```
+
+```{r}
+x.indep <- c(2:16)
+y.dep <- c(1)
+```
+
+***
+grid search
+***
+
+```{r}
+gbm_params2 <- list(col_sample_rate = seq(0.3, 0.7, 1.0),
+                   max_depth = seq(5, 7, 13)
+                    ,
+                   learn_rate = seq(0.01, 0.1, 0.001)
+                    #sample_rate = seq(0.5, 1.0, 0.1),
+                    #col_sample_rate = seq(0.1, 1.0, 0.1)
+                   )
+ # gbm_params2 <- list(learn_rate = seq(0.01, 0.1, 0.01),
+ #                     max_depth = seq(2, 10, 1),
+ #                     sample_rate = seq(0.5, 1.0, 0.1),
+ #                     col_sample_rate = seq(0.1, 1.0, 0.1))
+ # search_criteria <- list(strategy = "RandomDiscrete", max_models = 36, seed = 1)
+search_criteria <- list(strategy = "RandomDiscrete", max_models = 10, seed = 1122)
+```
+
+```{r}
+train12_downsampled.h2o[,1] <- as.factor(train12_downsampled.h2o[,1])
+colnames(train12_downsampled.h2o)
+summary(train12_downsampled.h2o$CVDSTRK3)
+```
+
+```{r}
+gbm_grid_calib_downsampled_2012_70_downsampled <- h2o.grid("gbm", x = x.indep, y = y.dep,
+                      grid_id = "gbm_grid_calib_downsampled_2", 
+                      training_frame = train12_downsampled.h2o,
+                                            ntrees = 500,
+                      seed = 1122,
+                      nfolds = 5,
+                      hyper_params = gbm_params2,
+                      search_criteria = search_criteria
+                      )
+```
+
+```{r}
+gbm_gridperf2 <- h2o.getGrid(grid_id = "gbm_grid_calib_downsampled_2",
+                             sort_by = "auc",
+                             decreasing = TRUE)
+print(gbm_gridperf2)
+# best GBM model by AUC
+best_gbm_2012_70_downsampled <- h2o.getModel(gbm_gridperf2@model_ids[[1]])
+```
+***
+best GBM model
+***
+
+```{r}
+best_gbm_perf2 <- h2o.performance(model = best_gbm_2012_70_downsampled,
+                                  newdata = test12_downsampled.h2o)
+(best_gbm_perf2)
+h2o.auc(h2o.performance(best_gbm_2012_70_downsampled, train12_downsampled.h2o))
+```
+***
+UNCALIBRATED RESULTS
+***
+
+```{r}
+h2o.auc((h2o.performance(best_gbm_2012_70_downsampled, test12_downsampled.h2o)))
+h2o.confusionMatrix(best_gbm_2012_70_downsampled, test12_downsampled.h2o)
+```
+
+***
+Calibration - Platt Scaling
+***
+
+```{r}
+summary(as.factor(calibrate12_downsampled.h2o$CVDSTRK3), exact_quantiles=TRUE)
+```
+
+```{r}
+set.seed(1122)
+predicted.calib <- h2o.predict(best_gbm_2012_70_downsampled, calibrate12_downsampled.h2o)
+manual.calib.input <- cbind(as.data.frame(predicted.calib$p1), as.data.frame(calibrate12_downsampled.h2o$CVDSTRK3))
+    colnames(manual.calib.input) <- c("p1", "response")
+manual.calib.input.h2o <- as.h2o(manual.calib.input)
+gbm_calib_downsampled_model_12_70_platt <- h2o.glm( x = "p1", y = "response", training_frame = manual.calib.input.h2o  , family = "binomial" )
+    ```
+    
+    
+```{r}
+predicted.test12_downsampled <- h2o.predict(best_gbm_2012_70_downsampled, test12_downsampled.h2o)
+manual.test12_downsampled.input <- cbind(as.data.frame(predicted.test12_downsampled$p1), as.data.frame(test12_downsampled.h2o$CVDSTRK3))
+colnames(manual.test12_downsampled.input) <- c("p1", "response")
+manual.test12_downsampled.input.h2o <- as.h2o(manual.test12_downsampled.input)
+h2o.auc(h2o.performance(gbm_calib_downsampled_model_12_70_platt , manual.test12_downsampled.input.h2o))
+h2o.confusionMatrix(gbm_calib_downsampled_model_12_70_platt, manual.test12_downsampled.input.h2o, metrics=list("f0point5", "f1", "f2", "precision","accuracy"))    
+```
+
+***
+CALIBRATED RESULT
+***
+
+```{r}
+h2o.auc(h2o.performance(gbm_calib_downsampled_model_12_70_platt , manual.test12_downsampled.input.h2o))
+    h2o.confusionMatrix(gbm_calib_downsampled_model_12_70_platt, manual.test12_downsampled.input.h2o#, metrics=list("f0point5", "f1", "f2", "precision","accuracy")
+                        )
+    plot(h2o.performance(gbm_calib_downsampled_model_12_70_platt , manual.test12_downsampled.input.h2o), type = "roc")
+    
+```
+
+```{r fig.height=6, fig.width=10}
+h2o.varimp_plot(best_gbm_2012_70_downsampled, num_of_features = 20)
+```
+
+***
+{True_Negative_Extraction and False_Positive_Extraction} and {False_Negative_Extraction and True_Positive_Extraction}
+***
+
+```{r}
+prediction_frame <- h2o.predict(gbm_calib_downsampled_model_12_70_platt , manual.test12_downsampled.input.h2o)
+prediction_frame
+```
+
+```{r}
+confusion_matrix_prep_frame <- test12_downsampled.h2o
+confusion_matrix_prep_frame$predict <- prediction_frame$predict
+confusion_matrix_prep_frame$p0 <- prediction_frame$p0
+confusion_matrix_prep_frame$p1 <- prediction_frame$p1
+confusion_matrix_prep_frame <- as.data.frame(confusion_matrix_prep_frame)
+FP_set_2012_downsampled <- subset(confusion_matrix_prep_frame, confusion_matrix_prep_frame$predict == 1 & confusion_matrix_prep_frame$CVDSTRK3 == 0)
+FN_set_2012_downsampled <- subset(confusion_matrix_prep_frame, confusion_matrix_prep_frame$predict == 0 & confusion_matrix_prep_frame$CVDSTRK3 == 1)
+TN_set_2012_downsampled <- subset(confusion_matrix_prep_frame, confusion_matrix_prep_frame$predict == 0 & confusion_matrix_prep_frame$CVDSTRK3 == 0)
+TP_set_2012_downsampled <- subset(confusion_matrix_prep_frame, confusion_matrix_prep_frame$predict == 1 & confusion_matrix_prep_frame$CVDSTRK3 == 1)
+FP_set_2012_downsampled
+TN_set_2012_downsampled
+FN_set_2012_downsampled
+TP_set_2012_downsampled
+```
+
+***
+behaviour of predictor model on X.CHLDCNT
+***
+
+```{r}
+library(ggplot2)
+qplot(x = X.CHLDCNT, y = p0, data = FN_set_2012_downsampled, geom = "point")
+```
+
+***
+SHAP VALUES
+***
+
+```{r}
+predict_auc <- h2o.predict_contributions(best_gbm_2012_70_downsampled, test12_downsampled.h2o)
+predict_auc
+```
+

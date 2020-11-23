@@ -1,0 +1,139 @@
+***
+upload h2o only after the original BRFSS dataset is removed if RStudio is used as it eats up too much of the global memory causing the machine to hang up as was the case of this case on a UBUNTU-16.04 LTS, 8GB RAM,4 core
+***
+
+```{r}
+library(h2o)
+localH2O <- h2o.init(nthreads = -1)
+#h2o.getVersion()
+#h2o_context(sc)
+```
+
+
+***
+check for outlier
+***
+
+***
+Step A. remove NaN
+***
+
+```{r}
+stroke1$AVEDRNK2 <- replace(stroke1$AVEDRNK2, which(is.na(stroke1$AVEDRNK2)), mean(stroke1$AVEDRNK2, na.rm=T))
+stroke1$SCNTWRK1 <- replace(stroke1$SCNTWRK1, which(is.na(stroke1$SCNTWRK1)), mean(stroke1$SCNTWRK1, na.rm=T))
+stroke1$FVBEANS <- replace(stroke1$FVBEANS, which(is.na(stroke1$FVBEANS)), mean(stroke1$FVBEANS, na.rm=T))
+stroke1$FVGREEN <- replace(stroke1$FVGREEN, which(is.na(stroke1$FVGREEN)), mean(stroke1$FVGREEN, na.rm=T))
+stroke1$FVORANG <- replace(stroke1$FVORANG, which(is.na(stroke1$FVORANG)), mean(stroke1$FVORANG, na.rm=T))
+stroke1$SSBSUGR1 <- replace(stroke1$SSBSUGR1, which(is.na(stroke1$SSBSUGR1)), mean(stroke1$SSBSUGR1, na.rm=T))
+stroke1$SSBFRUT1 <- replace(stroke1$SSBFRUT1, which(is.na(stroke1$SSBFRUT1)), mean(stroke1$SSBFRUT1, na.rm=T))
+stroke1$FRUIT1 <- replace(stroke1$FRUIT1, which(is.na(stroke1$FRUIT1)), mean(stroke1$FRUIT1, na.rm=T))
+stroke1$FRUITJU1 <- replace(stroke1$FRUITJU1, which(is.na(stroke1$FRUITJU1)), mean(stroke1$FRUITJU1, na.rm=T))
+stroke1$VEGETAB1 <- replace(stroke1$VEGETAB1, which(is.na(stroke1$VEGETAB1)), mean(stroke1$VEGETAB1, na.rm=T))
+stroke1$SLEPTIME <- replace(stroke1$SLEPTIME, which(is.na(stroke1$SLEPTIME)), mean(stroke1$SLEPTIME, na.rm=T))
+```
+
+```{r}
+summary(stroke1)
+```
+
+```{r}
+stroke1$X.CHLDCNT <- replace(stroke1$X.CHLDCNT, which(is.na(stroke1$X.CHLDCNT)), 0)
+stroke1$X.TOTINDA <- replace(stroke1$X.TOTINDA, which(is.na(stroke1$X.TOTINDA)), 0)
+stroke1$X.SMOKER3 <- replace(stroke1$X.SMOKER3, which(is.na(stroke1$X.SMOKER3)), 0)
+stroke1$USENOW3 <- replace(stroke1$USENOW3, which(is.na(stroke1$USENOW3)), 0)
+```
+
+```{r}
+stroke1$CVDSTRK3 <- ifelse(stroke1$CVDSTRK3==1, 1, 0)
+```
+
+```{r}
+stroke1$X.CHLDCNT<-as.factor(stroke1$X.CHLDCNT)
+stroke1$X.TOTINDA <- as.factor(stroke1$X.TOTINDA)
+stroke1$X.SMOKER3 <- as.factor(stroke1$X.SMOKER3) 
+stroke1$USENOW3 <- as.factor(stroke1$USENOW3)
+stroke1$CVDSTRK3 <- as.factor(stroke1$CVDSTRK3)
+```
+
+```{r}
+summary(stroke1)
+```
+
+```{r}
+summary(stroke1$CVDSTRK3)
+```
+
+***
+Step 2. cooks distance
+***
+
+```{r}
+mod_cook <- glm(CVDSTRK3 ~.,family=binomial(link ='logit'), data=stroke1)
+summary(mod_cook)
+```
+
+```{r}
+y.train <- 1
+x.train <- c(2:16)
+data <- train12.h2o
+mod_cook_h2o <- h2o.glm(x.train, y.train, data, seed=112, family = "binomial")
+```
+
+```{r}
+mod_cook_h2o
+```
+
+```{r}
+mean(cooksd)
+```
+
+```{r}
+cooksd = cooks.distance(mod_cook)
+```
+
+```{r height =5, width =2}
+plot(cooksd, pch="*", cex=2, main="Influential Obs by Cooks distance")  
+abline(h = 4*mean(cooksd, na.rm=T), col="black") # 4*mean is standard practice but not hard set
+text(x=1:length(cooksd)+1, y=cooksd, labels=ifelse(cooksd>20*mean(cooksd, na.rm=T),names(cooksd),""), col="red")  
+```
+
+***
+influential outliers
+***
+
+```{r}
+influential <- as.numeric(names(cooksd)[(cooksd > 4*mean(cooksd, na.rm=T))])
+summary(as.factor(stroke1[influential, ]$CVDSTRK3))
+```
+
+***
+cooks distance here due to the
+imbalance shows most positive cases
+as outlier which is why we normalized
+cooks distance to 2*(10) times the
+mean as start is 0.000 end is 0.025,
+i.e, 25 times the space, ie,
+mean_space@0.0012, but as in this
+case mean~0, i.e, less than .005 =>
+mean is taken@4*(5) times, 4 is the
+prescribed but not hard set value
+consulted from multiple sources
+***
+
+```{r height =5, width =2}
+plot(cooksd, pch="*", cex=2, main="Influential Obs by Cooks distance")  
+abline(h = 20*mean(cooksd, na.rm=T), col="black")  
+text(x=1:length(cooksd)+1, y=cooksd, labels=ifelse(cooksd>20*mean(cooksd, na.rm=T),names(cooksd),""), col="red")  
+```
+
+```{r}
+influential <- as.numeric(names(cooksd)[(cooksd > 20*mean(cooksd, na.rm=T))]) 
+summary(as.factor(stroke1[influential, ]$CVDSTRK3))
+```
+
+***
+thus both the checks show that only
+for both cases only negligible number
+of negative stroke responses are
+influential outliers 
+***

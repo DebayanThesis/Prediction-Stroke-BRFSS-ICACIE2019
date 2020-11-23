@@ -1,0 +1,128 @@
+***
+feature-target correlations
+***
+
+```{r}
+library(ModelMetrics)
+glm_ssbfrut1 <-  glm(CVDSTRK3 ~ SSBFRUT1,family=binomial(link ='logit'), data=stroke1)
+pred_ssbfrut1 <- predict(glm_ssbfrut1, type = 'response')
+SSBFRUT1_auc <- auc(stroke1$CVDSTRK3, pred_ssbfrut1)
+SSBFRUT1_auc
+```
+
+```{r}
+glm_SSBSUGR1 <-  glm(CVDSTRK3 ~ SSBSUGR1,family=binomial(link ='logit'), data=stroke1)
+pred_SSBSUGR1 <- predict(glm_SSBSUGR1, type = 'response')
+SSBSUGR1_auc <- auc(stroke1$CVDSTRK3, pred_SSBSUGR1)
+SSBSUGR1_auc
+```
+
+```{r}
+glm_X.CHLDCNT <-   glm(CVDSTRK3 ~ X.CHLDCNT,family=binomial(link ='logit'), data=stroke1)
+pred_X.CHLDCNT <- predict(glm_X.CHLDCNT, type = 'response')
+X.CHLDCNT_auc <- auc(stroke1$CVDSTRK3, pred_X.CHLDCNT)
+X.CHLDCNT_auc
+```
+
+```{r}
+glm_FRUIT1 <-   glm(CVDSTRK3 ~ FRUIT1,family=binomial(link ='logit'), data=stroke1)
+pred_FRUIT1 <- predict(glm_FRUIT1, type = 'response')
+FRUIT1_auc <- auc(stroke1$CVDSTRK3, pred_FRUIT1)
+FRUIT1_auc
+```
+
+```{r}
+glm_FRUITJU1 <-   glm(CVDSTRK3 ~ FRUITJU1,family=binomial(link ='logit'), data=stroke1)
+pred_FRUITJU1 <- predict(glm_FRUITJU1, type = 'response')
+FRUITJU1_auc <- auc(stroke1$CVDSTRK3, pred_FRUITJU1)
+FRUITJU1_auc
+```
+
+```{r}
+glm_FVBEANS <-   glm(CVDSTRK3 ~ FVBEANS,family=binomial(link ='logit'), data=stroke1)
+pred_FVBEANS <- predict(glm_FVBEANS, type = 'response')
+FVBEANS_auc <- auc(stroke1$CVDSTRK3, pred_FVBEANS)
+FVBEANS_auc
+```
+
+```{r}
+glm_FVGREEN <-  glm(CVDSTRK3 ~ FVGREEN,family=binomial(link ='logit'), data=stroke1)
+pred_FVGREEN <- predict(glm_FVGREEN, type = 'response')
+FVGREEN_auc <- auc(stroke1$CVDSTRK3, pred_FVGREEN)
+FVGREEN_auc
+```
+
+```{r}
+glm_FVORANG <-  glm(CVDSTRK3 ~ FVORANG,family=binomial(link ='logit'), data=stroke1)
+pred_FVORANG <- predict(glm_FVORANG, type = 'response')
+FVORANG_auc <- auc(stroke1$CVDSTRK3, pred_FVORANG)
+FVORANG_auc
+```
+
+```{r}
+glm_VEGETAB1 <- glm(CVDSTRK3 ~ VEGETAB1,family=binomial(link ='logit'), data=stroke1)
+pred_VEGETAB1 <- predict(glm_VEGETAB1, type = 'response')
+VEGETAB1_auc <- auc(stroke1$CVDSTRK3, pred_VEGETAB1)
+VEGETAB1_auc
+```
+
+```{r}
+glm_X.TOTINDA <-   glm(CVDSTRK3 ~ X.TOTINDA,family=binomial(link ='logit'), data=stroke1)
+pred_X.TOTINDA <- predict(glm_X.TOTINDA, type = 'response')
+X.TOTINDA_auc <- auc(stroke1$CVDSTRK3, pred_X.TOTINDA)
+X.TOTINDA_auc
+
+```
+
+```{r}
+glm_X.SMOKER3 <-  glm(CVDSTRK3 ~ X.SMOKER3,family=binomial(link ='logit'), data=stroke1)
+pred_X.SMOKER3 <- predict(glm_X.SMOKER3, type = 'response')
+X.SMOKER3_auc <- auc(stroke1$CVDSTRK3, pred_X.SMOKER3)
+X.SMOKER3_auc
+```
+
+```{r}
+glm_SLEPTIME <-   glm(CVDSTRK3 ~ SLEPTIME,family=binomial(link ='logit'), data=stroke1)
+pred_SLEPTIME <- predict(glm_SLEPTIME, type = 'response')
+SLEPTIME_auc <- auc(stroke1$CVDSTRK3, pred_SLEPTIME)
+SLEPTIME_auc
+```
+
+```{r}
+glm_AVEDRNK2 <- glm(CVDSTRK3 ~ AVEDRNK2,family=binomial(link ='logit'), data=stroke1)
+pred_AVEDRNK2 <- predict(glm_AVEDRNK2, type = 'response')
+AVEDRNK2_auc <- auc(stroke1$CVDSTRK3, pred_AVEDRNK2)
+AVEDRNK2_auc
+```
+
+```{r}
+glm_USENOW3 <- glm(CVDSTRK3 ~ USENOW3,family=binomial(link ='logit'), data=stroke1)
+pred_USENOW3 <- predict(glm_USENOW3, type = 'response')
+USENOW3_auc <- auc(stroke1$CVDSTRK3, pred_USENOW3)
+USENOW3_auc
+```
+
+```{r}
+glm_SCNTWRK1 <- glm(CVDSTRK3 ~ SCNTWRK1,family=binomial(link ='logit'), data=stroke1)
+pred_SCNTWRK1 <- predict(glm_SCNTWRK1, type = 'response')
+SCNTWRK1_auc <- auc(stroke1$CVDSTRK3, pred_SCNTWRK1)
+SCNTWRK1_auc
+```
+
+```{r}
+AuC_Predicting_Stroke <- c(SCNTWRK1_auc, X.TOTINDA_auc, X.SMOKER3_auc, X.CHLDCNT_auc, FRUIT1_auc, FRUITJU1_auc, SSBFRUT1_auc, SSBSUGR1_auc, VEGETAB1_auc, FVGREEN_auc, FVORANG_auc, FVBEANS_auc, SLEPTIME_auc, AVEDRNK2_auc, USENOW3_auc)
+Predictor_Names <- c("SCNTWRK1_auc", "X.TOTINDA_auc", "X.SMOKER3_auc", "X.CHLDCNT_auc", "FRUIT1_auc", "FRUITJU1_auc", "SSBFRUT1_auc", "SSBSUGR1_auc", "VEGETAB1_auc", "FVGREEN_auc", "FVORANG_auc", "FVBEANS_auc", "SLEPTIME_auc", "AVEDRNK2_auc", "USENOW3_auc")
+Feature_Target_AuC <- data.frame(AuC_Predicting_Stroke,Predictor_Names, stringsAsFactors = FALSE)
+Feature_Target_AuC
+```
+
+```{r}
+summary(as.factor(stroke1$CVDSTRK3))
+```
+
+```{r fig.height=13, fig.width=17}
+library(ggplot2)
+ggplot(data=Feature_Target_AuC, aes(x=Predictor_Names, y=AuC_Predicting_Stroke)) +
+  geom_bar(stat="identity", fill="steelblue")+
+  theme_minimal()
+```

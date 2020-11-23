@@ -1,0 +1,402 @@
+***
+data pre_cleaning : NaN/illegal values removal
+***
+
+***
+clean stroke
+***
+
+```{r}
+stroke1$CVDSTRK3 <- as.factor(ifelse(stroke1$CVDSTRK3=="1", 1, 0))
+summary(stroke1$CVDSTRK3)
+```
+
+***
+clean sugar sweetened fruit
+***
+
+```{r}
+stroke1$SSBFRUT1 <- ifelse((stroke1$SSBFRUT1==888 | stroke1$SSBFRUT1==999| stroke1$SSBFRUT1==777), 0, stroke1$SSBFRUT1)
+```
+
+```{r}
+summary(stroke1$SSBFRUT1)
+```
+
+```{r}
+stroke1$SSBFRUT1 <- ifelse(stroke1$SSBFRUT1 > 400, NA, stroke1$SSBFRUT1)
+summary(stroke1$SSBFRUT1)
+```
+
+
+```{r}
+stroke1$SSBFRUT1 <- ifelse(stroke1$SSBFRUT1>300&stroke1$SSBFRUT1<400, (stroke1$SSBFRUT1-300)/30, ifelse(stroke1$SSBFRUT1>200&stroke1$SSBFRUT1<300, (stroke1$SSBFRUT1-200)/7, ifelse(stroke1$SSBFRUT1>100&stroke1$SSBFRUT1<200, (stroke1$SSBFRUT1-100), NA)))
+summary(stroke1$SSBFRUT1)
+```
+
+```{r}
+summary(stroke1$SSBFRUT1)
+```
+
+***
+clean sugar sweetened fruit juice
+***
+
+```{r}
+stroke1$SSBSUGR1 <- ifelse((stroke1$SSBSUGR1==888 | stroke1$SSBSUGR1==999| stroke1$SSBSUGR1==777), 0, stroke1$SSBSUGR1)
+```
+
+```{r}
+summary(stroke1$SSBSUGR1)
+```
+
+```{r}
+stroke1$SSBSUGR1 <- ifelse(stroke1$SSBSUGR1 > 400, NA, stroke1$SSBSUGR1)
+summary(stroke1$SSBSUGR1)
+```
+
+
+```{r}
+stroke1$SSBSUGR1 <- ifelse(stroke1$SSBSUGR1>300&stroke1$SSBSUGR1<400, (stroke1$SSBSUGR1-300)/30, ifelse(stroke1$SSBSUGR1>200&stroke1$SSBSUGR1<300, (stroke1$SSBSUGR1-200)/7, ifelse(stroke1$SSBSUGR1>100&stroke1$SSBSUGR1<200, (stroke1$SSBSUGR1-100), NA)))
+summary(stroke1$SSBSUGR1)
+```
+
+```{r}
+summary(stroke1$SSBSUGR1)
+```
+***
+clean normal fruit juice
+***
+
+```{r}
+stroke1$FRUITJU1 <- ifelse((stroke1$FRUITJU1==555 | (stroke1$FRUITJU1==999| stroke1$FRUITJU1==777) | stroke1$FRUITJU1==300) , 0, stroke1$FRUITJU1)
+```
+
+```{r}
+summary(stroke1$FRUITJU1)
+```
+
+```{r}
+stroke1$FRUITJU1 <- ifelse(stroke1$FRUITJU1 > 400, NA, stroke1$FRUITJU1)
+summary(stroke1$FRUITJU1)
+```
+
+
+```{r}
+stroke1$FRUITJU1 <- ifelse(stroke1$FRUITJU1>300&stroke1$FRUITJU1<400, (stroke1$FRUITJU1-300)/30, ifelse(stroke1$FRUITJU1>200&stroke1$FRUITJU1<300, (stroke1$FRUITJU1-200)/7, ifelse(stroke1$FRUITJU1>100&stroke1$FRUITJU1<200, (stroke1$FRUITJU1-100), NA)))
+summary(stroke1$FRUITJU1)
+```
+
+```{r}
+summary(stroke1$FRUITJU1)
+```
+***
+clean fruit
+***
+
+```{r}
+stroke1$FRUIT1 <- ifelse((stroke1$FRUIT1==555 | (stroke1$FRUIT1==999| stroke1$FRUIT1==777) | stroke1$FRUIT1==300) , 0, stroke1$FRUIT1)
+```
+
+```{r}
+summary(stroke1$FRUIT1)
+```
+
+```{r}
+stroke1$FRUIT1 <- ifelse(stroke1$FRUIT1 > 400, NA, stroke1$FRUIT1)
+summary(stroke1$FRUIT1)
+```
+
+
+```{r}
+stroke1$FRUIT1 <- ifelse(stroke1$FRUIT1>300&stroke1$FRUIT1<400, (stroke1$FRUIT1-300)/30, ifelse(stroke1$FRUIT1>200&stroke1$FRUIT1<300, (stroke1$FRUIT1-200)/7, ifelse(stroke1$FRUIT1>100&stroke1$FRUIT1<200, (stroke1$FRUIT1-100), NA)))
+summary(stroke1$FRUIT1)
+```
+
+```{r}
+summary(stroke1$FRUIT1)
+```
+***
+clean beans
+***
+
+```{r}
+stroke1$FVBEANS <- ifelse((stroke1$FVBEANS==555 | (stroke1$FVBEANS==999| stroke1$FVBEANS==777) | stroke1$FVBEANS==300) , 0, stroke1$FVBEANS)
+```
+
+```{r}
+summary(stroke1$FVBEANS)
+```
+
+```{r}
+stroke1$FVBEANS <- ifelse(stroke1$FVBEANS > 400, NA, stroke1$FVBEANS)
+summary(stroke1$FVBEANS)
+```
+
+
+```{r}
+stroke1$FVBEANS <- ifelse(stroke1$FVBEANS>300&stroke1$FVBEANS<400, (stroke1$FVBEANS-300)/30, ifelse(stroke1$FVBEANS>200&stroke1$FVBEANS<300, (stroke1$FVBEANS-200)/7, ifelse(stroke1$FVBEANS>100&stroke1$FVBEANS<200, (stroke1$FVBEANS-100), NA)))
+summary(stroke1$FVBEANS)
+```
+
+```{r}
+summary(stroke1$FVBEANS)
+```
+
+***
+clean green vegetables
+***
+
+```{r}
+stroke1$FVGREEN <- ifelse((stroke1$FVGREEN==555 | (stroke1$FVGREEN==999| stroke1$FVGREEN==777) | stroke1$FVGREEN==300) , 0, stroke1$FVGREEN)
+```
+
+```{r}
+summary(stroke1$FVGREEN)
+```
+
+```{r}
+stroke1$FVGREEN <- ifelse(stroke1$FVGREEN > 400, NA, stroke1$FVGREEN)
+summary(stroke1$FVGREEN)
+```
+
+
+```{r}
+stroke1$FVGREEN <- ifelse(stroke1$FVGREEN>300&stroke1$FVGREEN<400, (stroke1$FVGREEN-300)/30, ifelse(stroke1$FVGREEN>200&stroke1$FVGREEN<300, (stroke1$FVGREEN-200)/7, ifelse(stroke1$FVGREEN>100&stroke1$FVGREEN<200, (stroke1$FVGREEN-100), NA)))
+summary(stroke1$FVGREEN)
+```
+
+```{r}
+summary(stroke1$FVGREEN)
+```
+
+***
+clean orange vegetables
+***
+
+```{r}
+stroke1$FVORANG <- ifelse((stroke1$FVORANG==555 | (stroke1$FVORANG==999| stroke1$FVORANG==777) | stroke1$FVORANG==300) , 0, stroke1$FVORANG)
+```
+
+```{r}
+summary(stroke1$FVORANG)
+```
+
+```{r}
+stroke1$FVORANG <- ifelse(stroke1$FVORANG > 400, NA, stroke1$FVORANG)
+summary(stroke1$FVORANG)
+```
+
+
+```{r}
+stroke1$FVORANG <- ifelse(stroke1$FVORANG>300&stroke1$FVORANG<400, (stroke1$FVORANG-300)/30, ifelse(stroke1$FVORANG>200&stroke1$FVORANG<300, (stroke1$FVORANG-200)/7, ifelse(stroke1$FVORANG>100&stroke1$FVORANG<200, (stroke1$FVORANG-100), NA)))
+summary(stroke1$FVORANG)
+```
+
+```{r}
+summary(stroke1$FVORANG)
+```
+
+***
+clean other vegetables
+***
+
+```{r}
+stroke1$VEGETAB1 <- ifelse((stroke1$VEGETAB1==555 | (stroke1$VEGETAB1==999| stroke1$VEGETAB1==777) | stroke1$VEGETAB1==300) , 0, stroke1$VEGETAB1)
+```
+
+```{r}
+summary(stroke1$VEGETAB1)
+```
+
+```{r}
+stroke1$VEGETAB1 <- ifelse(stroke1$VEGETAB1 > 400, NA, stroke1$VEGETAB1)
+summary(stroke1$VEGETAB1)
+```
+
+
+```{r}
+stroke1$VEGETAB1 <- ifelse(stroke1$VEGETAB1>300&stroke1$VEGETAB1<400, (stroke1$VEGETAB1-300)/30, ifelse(stroke1$VEGETAB1>200&stroke1$VEGETAB1<300, (stroke1$VEGETAB1-200)/7, ifelse(stroke1$VEGETAB1>100&stroke1$VEGETAB1<200, (stroke1$VEGETAB1-100), NA)))
+summary(stroke1$VEGETAB1)
+```
+
+```{r}
+summary(stroke1$VEGETAB1)
+```
+
+***
+clean average drink
+***
+
+```{r}
+stroke1$AVEDRNK2 <- ifelse((stroke1$AVEDRNK2==77 | stroke1$AVEDRNK2==99) , 0, stroke1$AVEDRNK2)
+```
+
+```{r}
+summary(stroke1$AVEDRNK2)
+```
+
+```{r}
+stroke1$AVEDRNK2 <- ifelse(stroke1$AVEDRNK2 > 76, NA, stroke1$AVEDRNK2)
+summary(stroke1$AVEDRNK2)
+```
+
+```{r}
+summary(stroke1$AVEDRNK2)
+```
+***
+clean sleptime
+***
+
+```{r}
+stroke1$SLEPTIME <- ifelse((stroke1$SLEPTIME==77 | stroke1$SLEPTIME==99) , 0, stroke1$SLEPTIME)
+```
+
+```{r}
+summary(stroke1$SLEPTIME)
+```
+
+```{r}
+stroke1$SLEPTIME <- ifelse(stroke1$SLEPTIME > 76, NA, stroke1$SLEPTIME)
+summary(stroke1$SLEPTIME)
+```
+
+```{r}
+summary(stroke1$SLEPTIME)
+```
+***
+clean non-cigar tobacco
+***
+
+```{r}
+stroke1$USENOW3 <- ifelse((stroke1$USENOW3==7 | stroke1$USENOW3==9 | stroke1$USENOW3==3) , 0, stroke1$USENOW3)
+```
+
+```{r}
+summary(stroke1$USENOW3)
+```
+
+```{r}
+stroke1$USENOW3 <- ifelse(stroke1$USENOW3 > 2, NA, stroke1$USENOW3)
+summary(stroke1$USENOW3)
+```
+
+```{r}
+stroke1$USENOW3 <- as.factor(stroke1$USENOW3)
+summary(stroke1$USENOW3)
+```
+***
+clean exercise
+***
+
+```{r}
+stroke1$X.TOTINDA <- ifelse(stroke1$X.TOTINDA==9 , NA, stroke1$X.TOTINDA)
+```
+
+```{r}
+summary(stroke1$X.TOTINDA)
+```
+
+```{r}
+stroke1$X.TOTINDA <- ifelse(stroke1$X.TOTINDA > 2, NA, stroke1$X.TOTINDA)
+summary(stroke1$X.TOTINDA)
+```
+
+```{r}
+stroke1$X.TOTINDA <- ifelse(stroke1$X.TOTINDA ==1, 0, 1)
+summary(stroke1$X.TOTINDA)
+```
+
+```{r}
+stroke1$X.TOTINDA <- as.factor(stroke1$X.TOTINDA)
+```
+
+```{r}
+summary(stroke1$X.TOTINDA)
+```
+***
+clean children number
+***
+
+```{r}
+stroke1$X.CHLDCNT <- ifelse(stroke1$X.CHLDCNT==9 , NA, stroke1$X.CHLDCNT)
+```
+
+```{r}
+summary(stroke1$X.CHLDCNT)
+```
+
+```{r}
+stroke1$X.CHLDCNT <- ifelse(stroke1$X.CHLDCNT > 6, NA, stroke1$X.CHLDCNT)
+summary(stroke1$X.CHLDCNT)
+```
+
+```{r}
+stroke1$X.CHLDCNT <- ifelse(stroke1$X.CHLDCNT ==1, 0, (stroke1$X.CHLDCNT-1))
+summary(stroke1$X.CHLDCNT)
+```
+
+```{r}
+stroke1$X.CHLDCNT <- as.factor(stroke1$X.CHLDCNT)
+```
+
+```{r}
+summary(stroke1$X.CHLDCNT)
+```
+***
+clean current smokers
+***
+
+```{r}
+stroke1$X.SMOKER3 <- ifelse(stroke1$X.SMOKER3==9 , NA, stroke1$X.SMOKER3)
+```
+
+```{r}
+summary(stroke1$X.SMOKER3)
+```
+
+```{r}
+stroke1$X.SMOKER3 <- ifelse(stroke1$X.SMOKER3 > 4, NA, stroke1$X.SMOKER3)
+summary(stroke1$X.SMOKER3)
+```
+
+```{r}
+stroke1$X.SMOKER3 <- ifelse(stroke1$X.SMOKER3 ==4, 0, stroke1$X.SMOKER3)
+summary(stroke1$X.SMOKER3)
+```
+
+```{r}
+stroke1$X.SMOKER3 <- as.factor(stroke1$X.SMOKER3)
+```
+
+```{r}
+summary(stroke1$X.SMOKER3)
+```
+***
+clean workhours
+***
+
+```{r}
+stroke1$SCNTWRK1 <- ifelse(stroke1$SCNTWRK1==99 | stroke1$SCNTWRK1 ==97 , NA, stroke1$SCNTWRK1)
+```
+
+```{r}
+summary(stroke1$SCNTWRK1)
+```
+
+```{r}
+stroke1$SCNTWRK1 <- ifelse(stroke1$SCNTWRK1 > 96, 0, stroke1$SCNTWRK1)
+summary(stroke1$SCNTWRK1)
+```
+
+```{r}
+summary(stroke1$SCNTWRK1)
+```
+
+***
+final all clean
+***
+
+```{r}
+summary(stroke1)
+```

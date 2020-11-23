@@ -1,0 +1,19 @@
+***
+Random Oversample_Prototype
+oversample to check which method of sampling is better for this case
+***
+
+```{r}
+summary(as.factor(stroke1$CVDSTRK3))
+stroke_tmp <- stroke1
+stroke_tmp$ID <- seq.int(nrow(stroke_tmp))
+stroke_over <- stroke_tmp[sample(1:nrow(stroke1), nrow(stroke1) / 6.15, replace = FALSE), ]
+summary(as.factor(stroke_over$CVDSTRK3))
+stroke_over$CVDSTRK3 <- ifelse(stroke_over$CVDSTRK3 == 0, 1, stroke_over$CVDSTRK3)
+stroke_tmp <- stroke_tmp[ -stroke_over$ID[1:nrow(stroke_over)], ]
+summary(as.factor(stroke_over$CVDSTRK3))
+summary(as.factor(stroke_tmp$CVDSTRK3))
+stroke1_oversampled <- rbind(stroke_over, stroke_tmp)
+summary(as.factor(stroke1_oversampled$CVDSTRK3))
+```
+***

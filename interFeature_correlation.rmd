@@ -1,0 +1,18 @@
+***
+inter-feature correlation
+***
+
+```{r}
+stroke1$X.CHLDCNT<-as.numeric(stroke1$X.CHLDCNT)
+stroke1$X.TOTINDA <- as.numeric(stroke1$X.TOTINDA)
+stroke1$X.SMOKER3 <- as.numeric(stroke1$X.SMOKER3) 
+stroke1$USENOW3 <- as.numeric(stroke1$USENOW3)
+```
+
+```{r height=10, width=5}
+library(corrplot)
+stroke_cor <- stroke1[, c(2:16)]
+corr.matrix_preliminary <- cor(stroke_cor, method= "spearman")
+corrplot(corr.matrix_preliminary, type = "upper", 
+         method = "pie")
+```

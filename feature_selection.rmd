@@ -1,0 +1,22 @@
+***
+load_data
+***
+
+```{r}
+setwd(<path to project directory>)
+#data(brfss2012)
+library(SASxport)
+lookup.xport("BRFSS2012.XPT") #XPT is case sensitive
+brfss2012 <- read.xport("BRFSS2012.XPT")
+```
+
+***
+feature-selection
+***
+
+```{r}
+library(dplyr)
+vars <- names(brfss2012) %in% c('FRUIT1', 'FRUITJU1', 'FVBEANS', 'CVDSTRK3', 'FVGREEN', 'SSBFRUT1', 'SSBSUGR1', 'FVORANG', 'VEGETAB1', 'AVEDRNK2', 'USENOW3', 'SLEPTIME', 'SCNTWRK1', 'X.TOTINDA', 'X.SMOKER3', 'X.CHLDCNT')
+stroke1 <- brfss2012[vars]
+rm(vars, brfss2012) #remove temporary variables and the whole dataset
+```
