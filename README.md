@@ -17,3 +17,6 @@ for Figure 2 :
 
 for figure 3 : 
 <p><a href="featureTarget_correlation.rmd ">featureTarget_correlation.rmd </a></p>
+
+for figure 5&6 and table 2&3 : 
+<p><a href="donwsampledModel_building.rmd">donwsampledModel_building.rmd </a></p>
