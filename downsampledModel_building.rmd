@@ -50,7 +50,7 @@ Random_Downsample_Train_Set
 set.seed(1122)
 library(dplyr)
 stroke_tmp <- train12_downsampled
-random_pool <- sample(1:nrow(train12_downsampled), nrow(train12_downsampled) / 4, replace = FALSE)
+random_pool <- sample(1:nrow(train12_downsampled), nrow(train12_downsampled) / 19.50, replace = FALSE)
 random_pool_tmp <- data.frame(random_pool)
 random_pool_tmp <-  subset(random_pool_tmp, stroke_tmp$CVDSTRK3[random_pool] < 1 )
 stroke_tmp <- stroke_tmp[ -random_pool_tmp$random_pool[1:nrow(random_pool_tmp)], ]
