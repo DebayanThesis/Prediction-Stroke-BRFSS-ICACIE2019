@@ -22,6 +22,9 @@ the given code was run on -
 2. RStudio with R version 3.6.3
 3. H2O library called from RStudio IDE
 ```
+for Figure 1 and Table 1 : 
+
+<p><a href="feature_selection.rmd ">feature_selection.rmd </a></p>
 
 for Figure 2 : 
 <p><a href="interFeature_correlation.rmd ">interFeature_correlation.rmd </a></p>
