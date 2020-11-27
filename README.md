@@ -26,8 +26,12 @@ the given code was run on -
 for Figure 2 : 
 <p><a href="interFeature_correlation.rmd ">interFeature_correlation.rmd </a></p>
 
-for Figure 3 : 
+for Figure 4 : 
 <p><a href="featureTarget_correlation.rmd ">featureTarget_correlation.rmd </a></p>
+
+for Figure 3 : 
+
+<p><a href="model_building.rmd ">model_building.rmd </a></p>
 
 for Figure 5&6 and Table 2&3 : 
 <p><a href="downsampledModel_building.rmd">downsampledModel_building.rmd </a></p>
