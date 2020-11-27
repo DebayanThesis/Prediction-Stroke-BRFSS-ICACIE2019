@@ -20,6 +20,7 @@ for initial set-up :
 the given code was run on -
 1. UBUNTU-16.04 with 4-CORE processor and 8 GB RAM
 2. RStudio with R version 3.6.3
+3. H2O library called from RStudio IDE
 ```
 
 for Figure 2 : 
