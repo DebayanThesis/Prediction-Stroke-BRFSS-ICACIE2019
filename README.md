@@ -13,7 +13,7 @@ If you find the code useful for your research, please cite our paper:
 Banerjee D., Singh J. (2021) Prediction of Stroke Risk Factors for Better Pre-emptive Healthcare: A Public-Survey-Based Approach. In: Panigrahi C.R., Pati B., Mohapatra P., Buyya R., Li KC. (eds) Progress in Advanced Computing and Intelligent Engineering. Advances in Intelligent Systems and Computing, vol 1199. Springer, Singapore. https://doi.org/10.1007/978-981-15-6353-9_2
 ```
 for dataset details :
-<a href="https://www.cdc.gov/brfss/annual_data/annual_2012.html">BRFSS 2012 </a>
+<a href="https://www.cdc.gov/brfss/annual_data/annual_data.htm">BRFSS </a>
 
 for initial set-up : 
 ```
