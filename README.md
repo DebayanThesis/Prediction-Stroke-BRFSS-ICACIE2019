@@ -22,33 +22,33 @@ the given code was run on -
 2. RStudio with R version 3.6.3
 3. H2O library called from RStudio IDE
 ```
-for Figure 1 and Table 1 : 
+#for Figure 1 and Table 1 : 
 
-![picture](master/images/Figure1.png)
+![picture](main/images/Figure1.png)
 
 <p><a href="feature_selection.rmd ">feature_selection.rmd </a></p>
 
-for Figure 2 : 
+#for Figure 2 : 
 
-![picture](master/images/Figure2.png)
+![picture](main/images/Figure2.png)
 
 <p><a href="interFeature_correlation.rmd ">interFeature_correlation.rmd </a></p>
 
-for Figure 4 : 
+#for Figure 4 : 
 
-![picture](master/images/Figure4.png)
+![picture](main/images/Figure4.png)
 
 <p><a href="featureTarget_correlation.rmd ">featureTarget_correlation.rmd </a></p>
 
-for Figure 3 : 
+#for Figure 3 : 
 
-![picture](master/images/Figure3.png)
+![picture](main/images/Figure3.png)
 
 <p><a href="model_building.rmd ">model_building.rmd </a></p>
 
-for Figure 5&6 and Table 2&3 :
+#for Figure 5&6 and Table 2&3 :
 
-![picture](master/images/Figure5.png)
-![picture](master/images/Figure6.png)
+![picture](main/images/Figure5.png)
+![picture](main/images/Figure6.png)
 
 <p><a href="downsampledModel_building.rmd">downsampledModel_building.rmd </a></p>
