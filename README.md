@@ -60,6 +60,33 @@ the given code was run on -
 
 # Table 1 :
 
+Index | BRFSS       |codes Meaning
+1        |CVDSTRK3 | Ever told you had a stroke.
+2 USENOW3 Usage of tobacco products other than cigars
+3 SSBSUGR1 Intake of sugar sweetened beverages excluding diet soda or
+diet pop over last 30 days
+4 SSBFRUT1 Intake of sugar sweetened fruit drinks including fruit drinks
+made at home with added sugar over last 30 days
+5 X.SMOKER3 Four-level smoker status: Everyday, Someday, Former, Non-
+smoker
+6 X.TOTINDA Adults who reported doing physical activity or exercise dur-
+ing the past 30 days other than their regular job
+7 AVEDRNK2 Total number of occasions of alcohol drinking in last 30 days
+8 FRUIT1 Excluding fruit juice, intake frequency of fruits over last 30
+days
+9 FRUITJU1 Frequency of 100% PURE fruit juices excluding fruit-
+flavoured drinks with added sugar over past 30 days
+10 FVBEANS Intake frequency of beans (all types) over last 30 days
+11 FVGREEN Intake frequency of green-coloured vegetables (all types)
+over last 30 days
+12 FVORANG Intake frequency of orange-coloured vegetables (all types)
+over last 30 days
+13 VEGETAB1 Not counting 10, 11 and 12, intake frequency of vegetables
+over last 30 days
+14 SLEPTIME Average sleeping hours per day
+15 SCNTWRK1 Average work hours per week
+16 X.CHLDCNT Number of children in household (Categories: 0, 1, 2, 3, 4,
+
 <p><a href="feature_selection.rmd ">feature_selection.rmd </a></p>
 
 # Table 2&3 :
