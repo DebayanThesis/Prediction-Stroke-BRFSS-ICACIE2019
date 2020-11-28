@@ -10,6 +10,10 @@ lookup.xport("BRFSS2012.XPT") #XPT is case sensitive
 brfss2012 <- read.xport("BRFSS2012.XPT")
 ```
 
+```{r}
+summary(as.factor(brfss2012$CVDSTRK3)) # figure 1
+```
+
 ***
 feature-selection
 ***
@@ -20,4 +24,5 @@ library(dplyr)
 vars <- names(brfss2012) %in% c('FRUIT1', 'FRUITJU1', 'FVBEANS', 'CVDSTRK3', 'FVGREEN', 'SSBFRUT1', 'SSBSUGR1', 'FVORANG', 'VEGETAB1', 'AVEDRNK2', 'USENOW3', 'SLEPTIME', 'SCNTWRK1', 'X.TOTINDA', 'X.SMOKER3', 'X.CHLDCNT') # in accordance with the definition given in our paper "purely behavioural features" in Sect 1, "By purely behavioural features we mean those that are directly controllable or negotiable (or both) by an individual without any monetary requirement. (excludes insurances). Thus behaviours influenced by social context, mental health, etc. are excluded for the most generalization of our result in order to achieve the maximum relevance with respect to mass awareness thus the less demography-constrained."
 stroke1 <- brfss2012[vars]
 rm(vars, brfss2012) # remove temporary variables and the whole dataset esle it's been noted in the given setup at readme.md that the system may hang up due to the global environment being hung up due to memory shortage.
+summary(stroke1) # table 1
 ```
