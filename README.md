@@ -24,31 +24,31 @@ the given code was run on -
 ```
 # for Figure 1 and Table 1 : 
 
-![Figure1](main/images/Figure1.png)
+![Figure1](/images/Figure1.png)
 
 <p><a href="feature_selection.rmd ">feature_selection.rmd </a></p>
 
 # for Figure 2 : 
 
-![Figure2](main/images/Figure2.png)
+![Figure2](/images/Figure2.png)
 
 <p><a href="interFeature_correlation.rmd ">interFeature_correlation.rmd </a></p>
 
 # for Figure 4 : 
 
-![Figure4](main/images/Figure4.png)
+![Figure4](/images/Figure4.png)
 
 <p><a href="featureTarget_correlation.rmd ">featureTarget_correlation.rmd </a></p>
 
 # for Figure 3 : 
 
-![Figure3](main/images/Figure3.png)
+![Figure3](/images/Figure3.png)
 
 <p><a href="model_building.rmd ">model_building.rmd </a></p>
 
 # for Figure 5&6 and Table 2&3 :
 
-![Figure5](main/images/Figure5.png)
-![Figure6](main/images/Figure6.png)
+![Figure5](/images/Figure5.png)
+![Figure6](/images/Figure6.png)
 
 <p><a href="downsampledModel_building.rmd">downsampledModel_building.rmd </a></p>
