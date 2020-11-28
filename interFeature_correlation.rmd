@@ -14,5 +14,5 @@ library(corrplot)
 stroke_cor <- stroke1[, c(2:16)]
 corr.matrix_preliminary <- cor(stroke_cor, method= "spearman")
 corrplot(corr.matrix_preliminary, type = "upper", 
-         method = "pie")
+         method = "pie") # figure 2
 ```
