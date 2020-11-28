@@ -174,13 +174,13 @@ CALIBRATED RESULT
 ```{r}
 h2o.auc(h2o.performance(gbm_calib_downsampled_model_12_70_platt , manual.test12_downsampled.input.h2o))
     h2o.confusionMatrix(gbm_calib_downsampled_model_12_70_platt, manual.test12_downsampled.input.h2o#, metrics=list("f0point5", "f1", "f2", "precision","accuracy")
-                        )
-    plot(h2o.performance(gbm_calib_downsampled_model_12_70_platt , manual.test12_downsampled.input.h2o), type = "roc")
+                        ) # table 2
+    plot(h2o.performance(gbm_calib_downsampled_model_12_70_platt , manual.test12_downsampled.input.h2o), type = "roc") # figure 5
     
 ```
 
 ```{r fig.height=6, fig.width=10}
-h2o.varimp_plot(best_gbm_2012_70_downsampled, num_of_features = 20)
+h2o.varimp_plot(best_gbm_2012_70_downsampled, num_of_features = 20) # figure 6 & table 3
 ```
 
 ***
