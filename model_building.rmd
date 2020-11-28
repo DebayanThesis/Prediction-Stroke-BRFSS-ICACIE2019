@@ -39,6 +39,7 @@ rm(stroke_tmp,random_pool_tmp, train12)
 
 ```{r}
 summary(as.factor(train12.h2o$CVDSTRK3))
+summary(as.factor(stroke1$CVDSTRK3)) # figure 3
 ```
 
 ***
