@@ -124,5 +124,5 @@ summary(as.factor(stroke1$CVDSTRK3))
 library(ggplot2)
 ggplot(data=Feature_Target_AuC, aes(x=Predictor_Names, y=AuC_Predicting_Stroke)) +
   geom_bar(stat="identity", fill="steelblue")+
-  theme_minimal()
+  theme_minimal() # figure 4
 ```
